@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wildlife Sentinel | Floema</title>
+    <title>Wildlife Sentinel | Forest City</title>
     <style>
         /* Minimalist & Clean Foundation */
         :root {
@@ -79,6 +79,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            border: none;
         }
 
         .grid-item:hover {
@@ -171,82 +172,149 @@
         <div class="subtitle">System Integration / Forest City Safety Matrix</div>
     </header>
 
-    <div id="homePage" class="page active">
-        <div class="grid-container">
-            <div class="grid-item" onclick="detectAnimal()">
-                <h2>Scan<br>Environment</h2>
-                <span>01 — Active Radar</span>
-            </div>
-            <div class="grid-item" onclick="showPage('howToPage')">
-                <h2>System<br>Protocols</h2>
-                <span>02 — Operations Manual</span>
-            </div>
-        </div>
-    </div>
-
-    <div id="detailPage" class="page">
-        <div class="detection-result">
-            <div class="danger-level" id="animalName">Scanning...</div>
-            <div class="meta-info">
-                <p><strong>Threat Status:</strong> <span id="animalDanger">--</span></p>
-                <p><strong>Proximity Vector:</strong> <span id="animalDist">--</span></p>
-                <p style="max-width: 600px; color: var(--text-secondary); margin-top: 20px;" id="animalTips">
-                    --
-                </p>
-            </div>
-            <button class="btn-minimal" onclick="showPage('homePage')">Reset Scan Matrix</button>
-        </div>
-    </div>
-
-    <div id="howToPage" class="page">
-        <div class="detection-result">
-            <div class="danger-level">Manual</div>
-            
-            <div class="protocol-step">
-                <strong>Protocol 01 / Offline Cache</strong>
-                <p>System initializes using locally compiled sensor-mesh data. Network arrays (Wi-Fi/Cellular) are not required for core operations.</p>
-            </div>
-
-            <div class="protocol-step">
-                <strong>Protocol 02 / Threat Analysis</strong>
-                <p>Environmental scanning uses spatial positioning queries to identify biological signatures within a 50-meter safety envelope.</p>
-            </div>
-
-            <div class="protocol-step">
-                <strong>Protocol 03 / Defensive Positioning</strong>
-                <p>In the event of an encounter, follow precision mitigation instructions immediately. Do not attempt manual redirection of local fauna.</p>
-            </div>
-            
-            <br>
-            <button class="btn-minimal" onclick="showPage('homePage')">Return to Core</button>
-        </div>
-    </div>
+    <div id="app"></div>
 
     <footer>
         &copy; 2026 Designed for Sustainability and Environmental Harmony.
     </footer>
 
-    <script>
-        // Array containing multiple complex animals to meet your request
+    <!-- React and Babel CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // Wildlife data
         const wildlife = [
-            { name: "King Cobra", danger: "Critical (Venomous)", dist: "12 Meters", tips: "Cease all physical motion instantly. Do not attempt intimidation gestures. Retrograde position slowly once target breaks line of sight." },
-            { name: "Wild Boar", danger: "High (Aggressive Matrix)", dist: "35 Meters", tips: "Family unit detected. Do not breach perimeter between maternal unit and offspring. Seek elevated terrain if targeted." },
-            { name: "Reticulated Python", danger: "High (Constrictor)", dist: "7 Meters", tips: "Camouflaged target near low foliage line. Divert course to paved surfaces. Maintain control of smaller companion animals." },
-            { name: "Asian Hornet Hive", danger: "Moderate (Swarm Risk)", dist: "15 Meters / Canopy", tips: "Acoustic signatures detected overhead. Suppress loud vocalizations and sudden kinetic movements. Exit canopy zone." },
-            { name: "Long-Tailed Macaque", danger: "Moderate (Territorial)", dist: "22 Meters", tips: "Conceal visible food matrices and plastic targets. Avoid direct ocular contact (smiling is interpreted as hostile behavior)." }
+            { 
+                name: "King Cobra", 
+                danger: "Critical (Venomous)", 
+                dist: "12 Meters", 
+                tips: "Cease all physical motion instantly. Do not attempt intimidation gestures. Retrograde position slowly on marked pathways. Contact local wildlife services immediately. Venom can be fatal without medical intervention."
+            },
+            { 
+                name: "Wild Boar", 
+                danger: "High (Aggressive Matrix)", 
+                dist: "35 Meters", 
+                tips: "Family unit detected. Do not breach perimeter between maternal unit and offspring. Seek elevated terrain or sturdy structures. Make loud noises to encourage distance. Never run directly away as this triggers chase response."
+            },
+            { 
+                name: "Reticulated Python", 
+                danger: "High (Constrictor)", 
+                dist: "7 Meters", 
+                tips: "Camouflaged target near low foliage line. Divert course to paved surfaces. Maintain control of small pets and children. Do not attempt capture. Snake is non-aggressive unless provoked or protecting nest."
+            },
+            { 
+                name: "Asian Hornet Hive", 
+                danger: "Moderate (Swarm Risk)", 
+                dist: "15 Meters / Canopy", 
+                tips: "Acoustic signatures detected overhead. Suppress loud vocalizations and sudden kinetic movements. Do not throw objects at nest. Retreat slowly and seek shelter. Medical attention required if stung multiple times."
+            },
+            { 
+                name: "Long-Tailed Macaque", 
+                danger: "Moderate (Territorial)", 
+                dist: "22 Meters", 
+                tips: "Conceal visible food matrices and plastic targets. Avoid direct eye contact (smiling is interpreted as threat display). Do not approach young animals. Troop can become aggressive if food availability is challenged."
+            }
         ];
 
-        // Global function to toggle active pages
-        function showPage(pageId) {
-            var pages = document.getElementsByClassName('page');
-            for (var i = 0; i < pages.length; i++) { 
-                pages[i].classList.remove('active'); 
-            }
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
+        // Home Page Component
+        const HomePage = ({ onScan, onManual }) => (
+            <div className="page active">
+                <div className="grid-container">
+                    <button className="grid-item" onClick={onScan} style={{ border: 'none', backgroundColor: 'inherit' }}>
+                        <h2>Scan<br/>Environment</h2>
+                        <span>01 — Active Radar</span>
+                    </button>
+                    <button className="grid-item" onClick={onManual} style={{ border: 'none', backgroundColor: 'inherit' }}>
+                        <h2>System<br/>Protocols</h2>
+                        <span>02 — Operations Manual</span>
+                    </button>
+                </div>
+            </div>
+        );
 
-        // Logic to dynamically scan and present a randomized threat profile
-        function detectAnimal() {
-            const randomAnimal = wildlife[Math.floor(Math.random() * wildlife.length)];
-            document.getElementById('animalName').
+        // Detail Page Component
+        const DetailPage = ({ animal, onReset }) => (
+            <div className="page active">
+                <div className="detection-result">
+                    <div className="danger-level">{animal.name}</div>
+                    <div className="meta-info">
+                        <p><strong>Threat Status:</strong> <span>{animal.danger}</span></p>
+                        <p><strong>Proximity Vector:</strong> <span>{animal.dist}</span></p>
+                        <p style={{ maxWidth: '600px', color: 'var(--text-secondary)', marginTop: '20px' }}>
+                            {animal.tips}
+                        </p>
+                    </div>
+                    <button className="btn-minimal" onClick={onReset}>Reset Scan Matrix</button>
+                </div>
+            </div>
+        );
+
+        // Manual Page Component
+        const ManualPage = ({ onReturn }) => (
+            <div className="page active">
+                <div className="detection-result">
+                    <div className="danger-level">Manual</div>
+                    
+                    <div className="protocol-step">
+                        <strong>Protocol 01 / Offline Cache</strong>
+                        <p>System initializes using locally compiled sensor-mesh data. Network arrays (Wi-Fi/Cellular) are not required for core operations.</p>
+                    </div>
+
+                    <div className="protocol-step">
+                        <strong>Protocol 02 / Threat Analysis</strong>
+                        <p>Environmental scanning uses spatial positioning queries to identify biological signatures within a 50-meter safety envelope.</p>
+                    </div>
+
+                    <div className="protocol-step">
+                        <strong>Protocol 03 / Defensive Positioning</strong>
+                        <p>In the event of an encounter, follow precision mitigation instructions immediately. Do not attempt manual redirection of local fauna.</p>
+                    </div>
+                    
+                    <br/>
+                    <button className="btn-minimal" onClick={onReturn}>Return to Core</button>
+                </div>
+            </div>
+        );
+
+        // Main App Component
+        const App = () => {
+            const [currentPage, setCurrentPage] = useState('home');
+            const [detectedAnimal, setDetectedAnimal] = useState(null);
+
+            const handleScan = () => {
+                const randomAnimal = wildlife[Math.floor(Math.random() * wildlife.length)];
+                setDetectedAnimal(randomAnimal);
+                setCurrentPage('detail');
+            };
+
+            const handleReset = () => {
+                setCurrentPage('home');
+            };
+
+            const handleManual = () => {
+                setCurrentPage('manual');
+            };
+
+            const handleReturn = () => {
+                setCurrentPage('home');
+            };
+
+            return (
+                <>
+                    {currentPage === 'home' && <HomePage onScan={handleScan} onManual={handleManual} />}
+                    {currentPage === 'detail' && detectedAnimal && <DetailPage animal={detectedAnimal} onReset={handleReset} />}
+                    {currentPage === 'manual' && <ManualPage onReturn={handleReturn} />}
+                </>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('app'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
