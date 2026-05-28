@@ -1,289 +1,306 @@
+DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Sentinel | Forest City Safety</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f9f4;
+            color: #333;
+        }
+        header {
+            background-color: #2d5a27;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        h2 { color: #2d5a27; border-bottom: 2px solid #e0e0e0; padding-bottom: 0.5rem; }
+        .offline-badge {
+            display: inline-block;
+            background: #d4edda;
+            color: #155724;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #2d5a27;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+        footer { text-align: center; font-size: 0.8rem; color: #666; margin-top: 3rem; padding-bottom: 2rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Wildlife Sentinel</h1>
+    <p>Safety in the heart of Forest City</p>
+</header>
+
+<div class="container">
+    <div class="card">
+        <span class="offline-badge">NO WI-FI REQUIRED</span>
+        <h2>The Problem</h2>
+        <p>In a forest city, dangerous animals like snakes and macaques can be anywhere. Traditional signs don't move, but animals do. We need a way to know what's around us in real-time to stay safe.</p>
+    </div>
+
+    <div class="card">
+        <h2>Our Solution</h2>
+        <p>An app that uses GPS and an offline database to detect dangerous wildlife near your location. It identifies the animal and gives you instant safety instructions, even when you're deep in the woods without a signal.</p>
+        <a href="#" class="btn">Learn How It Works</a>
+    </div>
+
+    <div class="card">
+        <h2>Features</h2>
+        <ul>
+            <li><strong>Animal Identification:</strong> Know if it's venomous instantly.</li>
+            <li><strong>Proximity Alerts:</strong> Get a buzz when a dangerous animal was recently spotted nearby.</li>
+            <li><strong>Survival Guide:</strong> Step-by-step instructions on what to do if you encounter a predator.</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 Wildlife Sentinel Project - Built for Forest City Residents
+</footer>
+
+</body>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wildlife Sentinel | Forest City</title>
+    <title>Wildlife Sentinel</title>
     <style>
-        /* Minimalist & Clean Foundation */
-        :root {
-            --bg-color: #fafafa;
-            --text-primary: #1a1a1a;
-            --text-secondary: #666;
-            --accent: #2d5a27;
-            --border: #e0e0e0;
-        }
-
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
+            background-color: #f4f9f4;
+            text-align: center;
         }
-
-        /* Navigation Header */
+        /* Style for the Header */
         header {
-            padding: 40px 20px;
-            border-bottom: 1px solid var(--border);
-            text-align: left;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-weight: 300;
-            font-size: 2.5rem;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-top: 10px;
-        }
-
-        /* Smooth Page Transitions */
+            background-color: #2d5a27;
+            color: white;
+            padding: 20px;
+        }/* Style for the "Pages" */
         .page {
-            display: none;
-            padding: 60px 20px;
-            max-width: 1000px;
+            display: none; /* This hides the pages by default */
+            padding: 20px;
+            max-width: 500px;
             margin: auto;
-            animation: fadeIn 0.6s ease-in-out;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* This class shows the active page */
+        .active {
+            display: block;
         }
-
-        .active { display: block; }
-
-        /* Minimalist Grid for Home Elements */
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background-color: var(--border);
-            border: 1px solid var(--border);
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             margin-top: 20px;
         }
-
-        .grid-item {
-            background: var(--bg-color);
-            padding: 80px 40px;
-            cursor: pointer;
-            transition: background 0.4s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .grid-item:hover {
-            background: #f0f0f0;
-        }
-
-        .grid-item h2 {
-            font-weight: 400;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            margin: 0 0 20px 0;
-            line-height: 1.2;
-        }
-
-        .grid-item span {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-        }
-
-        /* Refined Detail & Protocol Sections */
-        .detection-result {
-            text-align: left;
-            border-top: 1px solid var(--text-primary);
-            padding-top: 20px;
-        }
-
-        .danger-level {
-            font-size: 4rem;
-            font-weight: 200;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .meta-info {
-            font-size: 1rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .protocol-step {
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .protocol-step strong {
-            display: block;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-
-        /* Floating Minimalist Buttons */
-        .btn-minimal {
-            background: none;
-            border: 1px solid var(--text-primary);
-            color: var(--text-primary);
-            padding: 15px 40px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            transition: all 0.3s;
-            font-weight: bold;
-        }
-
-        .btn-minimal:hover {
-            background: var(--text-primary);
+        .btn {
+            background: #2d5a27;
             color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
         }
-
-        footer {
-            margin-top: 100px;
-            padding: 40px;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #999;
-            text-align: center;
-            border-top: 1px solid var(--border);
+        .warning-text {
+            color: #d9534f;
+            font-weight: bold;
         }
     </style>
 </head>
-<body>
-
-    <header>
-        <h1>Wildlife Sentinel</h1>
-        <div class="subtitle">System Integration / Forest City Safety Matrix</div>
-    </header>
-
-    <div id="homePage" class="page active">
-        <div class="grid-container">
-            <div class="grid-item" onclick="detectAnimal()">
-                <h2>Scan<br>Environment</h2>
-                <span>01 — Active Radar</span>
-            </div>
-            <div class="grid-item" onclick="showPage('howToPage')">
-                <h2>System<br>Protocols</h2>
-                <span>02 — Operations Manual</span>
-            </div>
+<body><div id="homePage" class="page active">
+        <header>
+            <h1>Wildlife Sentinel</h1>
+            <p>Scanning Forest City...</p>
+        </header>
+        <div class="card">
+            <p>No Wi-Fi needed. Stay safe while exploring.</p>
+            <button class="btn" onclick="showPage('detailPage')">Check For Animals</button>
         </div>
     </div>
 
     <div id="detailPage" class="page">
-        <div class="detection-result">
-            <div class="danger-level" id="animalName">Scanning...</div>
-            <div class="meta-info">
-                <p><strong>Threat Status:</strong> <span id="animalDanger">--</span></p>
-                <p><strong>Proximity Vector:</strong> <span id="animalDist">--</span></p>
-                <p style="max-width: 600px; color: var(--text-secondary); margin-top: 20px;" id="animalTips">
-                    --
-                </p>
-            </div>
-            <button class="btn-minimal" onclick="showPage('homePage')">Reset Scan Matrix</button>
+        <header>
+            <h1>Animal Detected!</h1>
+        </header>
+        <div class="card">
+            <h2 class="warning-text">⚠️ Reticulated Python</h2>
+            <p><strong>Status:</strong> Potentially Dangerous</p>
+            <hr>
+            <p><strong>How it works:</strong> This snake is non-venomous but very strong. It was detected 50 meters away using your phone's offline sensors.</p>
+            <p><strong>Safety Tip:</strong> Do not approach. Back away slowly and keep pets on a leash.</p>
+            <button class="btn" onclick="showPage('homePage')">Go Back</button>
+        </div>
+    </div>
+
+    <script>
+        // This function hides all pages and only shows the one you clicked
+        function showPage(pageId) {
+            // Hide all pages
+            var pages = document.getElementsByClassName('page');
+            for (var i = 0; i < pages.length; i++) {
+                pages[i].classList.remove('active');
+            }
+            // Show the page we want
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Sentinel</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: #f4f9f4;
+        }
+        header {
+            background-color: #2d5a27;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .page {
+            display: none; /* Hides all pages by default */
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+        }
+        .active {
+            display: block; /* Only shows the page with this class */
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .btn {
+            background: #2d5a27;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .btn-secondary {
+            background: #555;
+        }
+        .warning-text {
+            color: #d9534f;
+        }
+        ul {
+            text-align: left;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body><div id="homePage" class="page active">
+        <header>
+            <h1>Wildlife Sentinel</h1>
+            <p>Your Forest City Safety Guide</p>
+        </header>
+        <div class="card">
+            <p>Ensure your safety in nature with real-time, offline animal detection.</p>
+            <button class="btn" onclick="showPage('detailPage')">Check For Animals</button>
+            <button class="btn btn-secondary" onclick="showPage('howToPage')">How To Use It</button>
+        </div>
+    </div>
+
+    <div id="detailPage" class="page">
+        <header>
+            <h1>Detection Results</h1>
+        </header>
+        <div class="card">
+            <h2 class="warning-text">⚠️ Reticulated Python</h2>
+            <p><strong>Status:</strong> Very Dangerous</p>
+            <p><strong>Location:</strong> 50m North of your position.</p>
+            <hr>
+            <p>This animal was detected using <strong>sensor-mesh technology</strong> which works without Wi-Fi or cellular data.</p>
+            <button class="btn" onclick="showPage('homePage')">Back to Home</button>
         </div>
     </div>
 
     <div id="howToPage" class="page">
-        <div class="detection-result">
-            <div class="danger-level">Manual</div>
-            
-            <div class="protocol-step">
-                <strong>Protocol 01 / Offline Cache</strong>
-                <p>System initializes using locally compiled sensor-mesh data. Network arrays (Wi-Fi/Cellular) are not required for core operations.</p>
-            </div>
-
-            <div class="protocol-step">
-                <strong>Protocol 02 / Threat Analysis</strong>
-                <p>Environmental scanning uses spatial positioning queries to identify biological signatures within a 50-meter safety envelope.</p>
-            </div>
-
-            <div class="protocol-step">
-                <strong>Protocol 03 / Defensive Positioning</strong>
-                <p>In the event of an encounter, follow precision mitigation instructions immediately. Do not attempt manual redirection of local fauna.</p>
-            </div>
-            
-            <br>
-            <button class="btn-minimal" onclick="showPage('homePage')">Return to Core</button>
+        <header>
+            <h1>How To Use It</h1>
+        </header>
+        <div class="card">
+            <h3>Simple Steps for Safety:</h3>
+            <ul>
+                <li><strong>Open the App:</strong> The app pre-loads maps, so you don't need Wi-Fi.</li>
+                <li><strong>Press "Check":</strong> The app scans for signals from animal trackers or community reports.</li>
+                <li><strong>Read the Danger Level:</strong> If an animal is found, the app tells you if it is venomous or dangerous.</li>
+                <li><strong>Follow Advice:</strong> Do exactly what the "Safety Tip" says to stay safe.</li>
+            </ul>
+            <button class="btn" onclick="showPage('homePage')">I Understand</button>
         </div>
     </div>
 
-    <footer>
-        &copy; 2026 Designed for Sustainability and Environmental Harmony.
-    </footer>
-
     <script>
-        // Array containing dangerous animals found in Forest City, Johor region
-        const wildlife = [
-            { 
-                name: "King Cobra", 
-                danger: "Critical (Venomous)", 
-                dist: "12 Meters", 
-                tips: "Cease all physical motion instantly. Do not attempt intimidation gestures. Retrograde position slowly on marked pathways. Contact local wildlife services immediately. Venom can be fatal without medical intervention."
-            },
-            { 
-                name: "Wild Boar", 
-                danger: "High (Aggressive Matrix)", 
-                dist: "35 Meters", 
-                tips: "Family unit detected. Do not breach perimeter between maternal unit and offspring. Seek elevated terrain or sturdy structures. Make loud noises to encourage distance. Never run directly away as this triggers chase response."
-            },
-            { 
-                name: "Reticulated Python", 
-                danger: "High (Constrictor)", 
-                dist: "7 Meters", 
-                tips: "Camouflaged target near low foliage line. Divert course to paved surfaces. Maintain control of small pets and children. Do not attempt capture. Snake is non-aggressive unless provoked or protecting nest."
-            },
-            { 
-                name: "Asian Hornet Hive", 
-                danger: "Moderate (Swarm Risk)", 
-                dist: "15 Meters / Canopy", 
-                tips: "Acoustic signatures detected overhead. Suppress loud vocalizations and sudden kinetic movements. Do not throw objects at nest. Retreat slowly and seek shelter. Medical attention required if stung multiple times."
-            },
-            { 
-                name: "Long-Tailed Macaque", 
-                danger: "Moderate (Territorial)", 
-                dist: "22 Meters", 
-                tips: "Conceal visible food matrices and plastic targets. Avoid direct eye contact (smiling is interpreted as threat display). Do not approach young animals. Troop can become aggressive if food availability is challenged."
-            }
-        ];
-
-        // Global function to toggle active pages
+        // This function handles the "Navigation" between your pages
         function showPage(pageId) {
             var pages = document.getElementsByClassName('page');
-            for (var i = 0; i < pages.length; i++) { 
-                pages[i].classList.remove('active'); 
+            for (var i = 0; i < pages.length; i++) {
+                pages[i].classList.remove('active');
             }
             document.getElementById(pageId).classList.add('active');
-        }
-
-        // Detection function for the radar scanner
-        function detectAnimal() {
-            // Random detection from wildlife array
-            var randomAnimal = wildlife[Math.floor(Math.random() * wildlife.length)];
-            
-            // Update the detail page with detection results
-            document.getElementById('animalName').textContent = randomAnimal.name;
-            document.getElementById('animalDanger').textContent = randomAnimal.danger;
-            document.getElementById('animalDist').textContent = randomAnimal.dist;
-            document.getElementById('animalTips').textContent = randomAnimal.tips;
-            
-            // Show the detection results page
-            showPage('detailPage');
+            window.scrollTo(0, 0); // Scrolls to the top of the new page
         }
     </script>
+
 </body>
-</html>
+</html<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Sentinel</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f9f4; color: #333; }
+        header { background-color: #2d5a27; color: white; padding: 20px; text-align: center; }
+        .page { display: none; padding: 20px; max-width: 500px; margin: auto; }
+        .active { display: block; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 20px; }
