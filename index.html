@@ -154,6 +154,129 @@
             color: white;
         }
 
+        /* Radar Scanner Animation */
+        .radar-container {
+            width: 300px;
+            height: 300px;
+            margin: 40px auto;
+            position: relative;
+            background: radial-gradient(circle, rgba(45, 90, 39, 0.1) 0%, transparent 70%);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .radar-sweep {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .radar-line {
+            position: absolute;
+            width: 2px;
+            height: 50%;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            animation: sweep 3s linear infinite;
+        }
+
+        @keyframes sweep {
+            from {
+                transform: rotateZ(0deg);
+            }
+            to {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        .radar-center {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .radar-rings {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .ring {
+            position: absolute;
+            border: 1px solid rgba(45, 90, 39, 0.3);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .ring-1 { width: 50%; height: 50%; }
+        .ring-2 { width: 75%; height: 75%; }
+        .ring-3 { width: 100%; height: 100%; }
+
+        .location-display {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(45, 90, 39, 0.05);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+        }
+
+        .location-display p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .location-label {
+            font-weight: bold;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .scanning-text {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .scanning-dots {
+            display: inline;
+        }
+
+        .scanning-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+
         footer {
             margin-top: 100px;
             padding: 40px;
@@ -184,7 +307,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel">
-        const { useState } = React;
+        const { useState, useEffect } = React;
 
         // Wildlife data
         const wildlife = [
@@ -220,38 +343,121 @@
             }
         ];
 
-        // Home Page Component
-        const HomePage = ({ onScan, onManual }) => (
-            <div className="page active">
-                <div className="grid-container">
-                    <button className="grid-item" onClick={onScan} style={{ border: 'none', backgroundColor: 'inherit' }}>
-                        <h2>Scan<br/>Environment</h2>
-                        <span>01 — Active Radar</span>
-                    </button>
-                    <button className="grid-item" onClick={onManual} style={{ border: 'none', backgroundColor: 'inherit' }}>
-                        <h2>System<br/>Protocols</h2>
-                        <span>02 — Operations Manual</span>
-                    </button>
+        // Radar Scanner Component
+        const RadarScanner = ({ isScanning, location }) => (
+            <div className="radar-container">
+                <div className="radar-rings">
+                    <div className="ring ring-1"></div>
+                    <div className="ring ring-2"></div>
+                    <div className="ring ring-3"></div>
                 </div>
+                <div className="radar-sweep">
+                    <div className="radar-line"></div>
+                </div>
+                <div className="radar-center"></div>
             </div>
         );
 
-        // Detail Page Component
-        const DetailPage = ({ animal, onReset }) => (
-            <div className="page active">
-                <div className="detection-result">
-                    <div className="danger-level">{animal.name}</div>
-                    <div className="meta-info">
-                        <p><strong>Threat Status:</strong> <span>{animal.danger}</span></p>
-                        <p><strong>Proximity Vector:</strong> <span>{animal.dist}</span></p>
-                        <p style={{ maxWidth: '600px', color: 'var(--text-secondary)', marginTop: '20px' }}>
-                            {animal.tips}
-                        </p>
+        // Home Page Component
+        const HomePage = ({ onScan, onManual }) => {
+            const [location, setLocation] = useState(null);
+            const [error, setError] = useState(null);
+
+            useEffect(() => {
+                // Get user's geolocation
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const { latitude, longitude } = position.coords;
+                            setLocation({
+                                lat: latitude.toFixed(4),
+                                lng: longitude.toFixed(4),
+                                name: "Forest City, Johor"
+                            });
+                        },
+                        (err) => {
+                            setError("Location access denied");
+                            setLocation({
+                                lat: "3.7301",
+                                lng: "101.5241",
+                                name: "Forest City, Johor (Default)"
+                            });
+                        }
+                    );
+                }
+            }, []);
+
+            return (
+                <div className="page active">
+                    <RadarScanner isScanning={false} />
+                    
+                    <div className="location-display">
+                        <p><span className="location-label">📍 Current Location Detected:</span></p>
+                        <p>{location ? location.name : "Scanning location..."}</p>
+                        {location && (
+                            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                                Coordinates: {location.lat}, {location.lng}
+                            </p>
+                        )}
                     </div>
-                    <button className="btn-minimal" onClick={onReset}>Reset Scan Matrix</button>
+
+                    <div className="grid-container">
+                        <button className="grid-item" onClick={onScan} style={{ border: 'none', backgroundColor: 'inherit' }}>
+                            <h2>Scan<br/>Environment</h2>
+                            <span>01 — Active Radar</span>
+                        </button>
+                        <button className="grid-item" onClick={onManual} style={{ border: 'none', backgroundColor: 'inherit' }}>
+                            <h2>System<br/>Protocols</h2>
+                            <span>02 — Operations Manual</span>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        };
+
+        // Detail Page Component
+        const DetailPage = ({ animal, onReset, location }) => {
+            const [isScanning, setIsScanning] = useState(true);
+
+            useEffect(() => {
+                // Stop scanning animation after 3 seconds
+                const timer = setTimeout(() => setIsScanning(false), 3000);
+                return () => clearTimeout(timer);
+            }, []);
+
+            return (
+                <div className="page active">
+                    {isScanning ? (
+                        <>
+                            <RadarScanner isScanning={true} />
+                            <div className="scanning-text">
+                                <span>Analyzing environmental data</span>
+                                <span className="scanning-dots"></span>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="location-display">
+                                <p><span className="location-label">📍 Scan Location:</span></p>
+                                <p>{location && location.name}</p>
+                            </div>
+
+                            <div className="detection-result">
+                                <div className="danger-level">{animal.name}</div>
+                                <div className="meta-info">
+                                    <p><strong>Threat Status:</strong> <span>{animal.danger}</span></p>
+                                    <p><strong>Proximity Vector:</strong> <span>{animal.dist}</span></p>
+                                    <p style={{ maxWidth: '600px', color: 'var(--text-secondary)', marginTop: '20px' }}>
+                                        {animal.tips}
+                                    </p>
+                                </div>
+                                <button className="btn-minimal" onClick={onReset}>Reset Scan Matrix</button>
+                            </div>
+                        </>
+                    )}
+                </div>
+            );
+        };
 
         // Manual Page Component
         const ManualPage = ({ onReturn }) => (
@@ -284,6 +490,30 @@
         const App = () => {
             const [currentPage, setCurrentPage] = useState('home');
             const [detectedAnimal, setDetectedAnimal] = useState(null);
+            const [location, setLocation] = useState(null);
+
+            useEffect(() => {
+                // Get user's geolocation once on mount
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const { latitude, longitude } = position.coords;
+                            setLocation({
+                                lat: latitude.toFixed(4),
+                                lng: longitude.toFixed(4),
+                                name: "Forest City, Johor"
+                            });
+                        },
+                        (err) => {
+                            setLocation({
+                                lat: "3.7301",
+                                lng: "101.5241",
+                                name: "Forest City, Johor (Default)"
+                            });
+                        }
+                    );
+                }
+            }, []);
 
             const handleScan = () => {
                 const randomAnimal = wildlife[Math.floor(Math.random() * wildlife.length)];
@@ -306,7 +536,7 @@
             return (
                 <>
                     {currentPage === 'home' && <HomePage onScan={handleScan} onManual={handleManual} />}
-                    {currentPage === 'detail' && detectedAnimal && <DetailPage animal={detectedAnimal} onReset={handleReset} />}
+                    {currentPage === 'detail' && detectedAnimal && <DetailPage animal={detectedAnimal} onReset={handleReset} location={location} />}
                     {currentPage === 'manual' && <ManualPage onReturn={handleReturn} />}
                 </>
             );
