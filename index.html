@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wildlife Sentinel | Floema</title>
+    <title>Wildlife Sentinel | Forest City</title>
     <style>
         /* Minimalist & Clean Foundation */
         :root {
@@ -227,13 +227,38 @@
     </footer>
 
     <script>
-        // Array containing multiple complex animals to meet your request
+        // Array containing dangerous animals found in Forest City, Johor region
         const wildlife = [
-            { name: "King Cobra", danger: "Critical (Venomous)", dist: "12 Meters", tips: "Cease all physical motion instantly. Do not attempt intimidation gestures. Retrograde position slowly once target breaks line of sight." },
-            { name: "Wild Boar", danger: "High (Aggressive Matrix)", dist: "35 Meters", tips: "Family unit detected. Do not breach perimeter between maternal unit and offspring. Seek elevated terrain if targeted." },
-            { name: "Reticulated Python", danger: "High (Constrictor)", dist: "7 Meters", tips: "Camouflaged target near low foliage line. Divert course to paved surfaces. Maintain control of smaller companion animals." },
-            { name: "Asian Hornet Hive", danger: "Moderate (Swarm Risk)", dist: "15 Meters / Canopy", tips: "Acoustic signatures detected overhead. Suppress loud vocalizations and sudden kinetic movements. Exit canopy zone." },
-            { name: "Long-Tailed Macaque", danger: "Moderate (Territorial)", dist: "22 Meters", tips: "Conceal visible food matrices and plastic targets. Avoid direct ocular contact (smiling is interpreted as hostile behavior)." }
+            { 
+                name: "King Cobra", 
+                danger: "Critical (Venomous)", 
+                dist: "12 Meters", 
+                tips: "Cease all physical motion instantly. Do not attempt intimidation gestures. Retrograde position slowly on marked pathways. Contact local wildlife services immediately. Venom can be fatal without medical intervention."
+            },
+            { 
+                name: "Wild Boar", 
+                danger: "High (Aggressive Matrix)", 
+                dist: "35 Meters", 
+                tips: "Family unit detected. Do not breach perimeter between maternal unit and offspring. Seek elevated terrain or sturdy structures. Make loud noises to encourage distance. Never run directly away as this triggers chase response."
+            },
+            { 
+                name: "Reticulated Python", 
+                danger: "High (Constrictor)", 
+                dist: "7 Meters", 
+                tips: "Camouflaged target near low foliage line. Divert course to paved surfaces. Maintain control of small pets and children. Do not attempt capture. Snake is non-aggressive unless provoked or protecting nest."
+            },
+            { 
+                name: "Asian Hornet Hive", 
+                danger: "Moderate (Swarm Risk)", 
+                dist: "15 Meters / Canopy", 
+                tips: "Acoustic signatures detected overhead. Suppress loud vocalizations and sudden kinetic movements. Do not throw objects at nest. Retreat slowly and seek shelter. Medical attention required if stung multiple times."
+            },
+            { 
+                name: "Long-Tailed Macaque", 
+                danger: "Moderate (Territorial)", 
+                dist: "22 Meters", 
+                tips: "Conceal visible food matrices and plastic targets. Avoid direct eye contact (smiling is interpreted as threat display). Do not approach young animals. Troop can become aggressive if food availability is challenged."
+            }
         ];
 
         // Global function to toggle active pages
@@ -242,3 +267,23 @@
             for (var i = 0; i < pages.length; i++) { 
                 pages[i].classList.remove('active'); 
             }
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Detection function for the radar scanner
+        function detectAnimal() {
+            // Random detection from wildlife array
+            var randomAnimal = wildlife[Math.floor(Math.random() * wildlife.length)];
+            
+            // Update the detail page with detection results
+            document.getElementById('animalName').textContent = randomAnimal.name;
+            document.getElementById('animalDanger').textContent = randomAnimal.danger;
+            document.getElementById('animalDist').textContent = randomAnimal.dist;
+            document.getElementById('animalTips').textContent = randomAnimal.tips;
+            
+            // Show the detection results page
+            showPage('detailPage');
+        }
+    </script>
+</body>
+</html>
