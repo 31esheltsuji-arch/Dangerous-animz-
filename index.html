@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Sentinel | Floema</title>
+    <style>
+        /* Minimalist & Clean Foundation */
+        :root {
+            --bg-color: #fafafa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --accent: #2d5a27;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        /* Navigation Header */
+        header {
+            padding: 40px 20px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: 2.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+
+        /* Smooth Page Transitions */
+        .page {
+            display: none;
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: auto;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .active { display: block; }
+
+        /* Minimalist Grid for Home Elements */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background-color: var(--border);
+            border: 1px solid var(--border);
+            margin-top: 20px;
+        }
+
+        .grid-item {
+            background: var(--bg-color);
+            padding: 80px 40px;
+            cursor: pointer;
+            transition: background 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .grid-item:hover {
+            background: #f0f0f0;
+        }
+
+        .grid-item h2 {
+            font-weight: 400;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            margin: 0 0 20px 0;
+            line-height: 1.2;
+        }
+
+        .grid-item span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        /* Refined Detail & Protocol Sections */
+        .detection-result {
+            text-align: left;
+            border-top: 1px solid var(--text-primary);
+            padding-top: 20px;
+        }
+
+        .danger-level {
+            font-size: 4rem;
+            font-weight: 200;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .meta-info {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .protocol-step {
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .protocol-step strong {
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        /* Floating Minimalist Buttons */
+        .btn-minimal {
+            background: none;
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            padding: 15px 40px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-minimal:hover {
+            background: var(--text-primary);
+            color: white;
+        }
+
+        footer {
+            margin-top: 100px;
+            padding: 40px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #999;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Wildlife Sentinel</h1>
+        <div class="subtitle">System Integration / Forest City Safety Matrix</div>
+    </header>
+
+    <div id="homePage" class="page active">
+        <div class="grid-container">
+            <div class="grid-item" onclick="detectAnimal()">
+                <h2>Scan<br>Environment</h2>
+                <span>01 — Active Radar</span>
+            </div>
+            <div class="grid-item" onclick="showPage('howToPage')">
+                <h2>System<br>Protocols</h2>
+                <span>02 — Operations Manual</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="detailPage" class="page">
+        <div class="detection-result">
+            <div class="danger-level" id="animalName">Scanning...</div>
+            <div class="meta-info">
+                <p><strong>Threat Status:</strong> <span id="animalDanger">--</span></p>
+                <p><strong>Proximity Vector:</strong> <span id="animalDist">--</span></p>
+                <p style="max-width: 600px; color: var(--text-secondary); margin-top: 20px;" id="animalTips">
+                    --
+                </p>
+            </div>
+            <button class="btn-minimal" onclick="showPage('homePage')">Reset Scan Matrix</button>
+        </div>
+    </div>
+
+    <div id="howToPage" class="page">
+        <div class="detection-result">
+            <div class="danger-level">Manual</div>
+            
+            <div class="protocol-step">
+                <strong>Protocol 01 / Offline Cache</strong>
+                <p>System initializes using locally compiled sensor-mesh data. Network arrays (Wi-Fi/Cellular) are not required for core operations.</p>
+            </div>
+
+            <div class="protocol-step">
+                <strong>Protocol 02 / Threat Analysis</strong>
+                <p>Environmental scanning uses spatial positioning queries to identify biological signatures within a 50-meter safety envelope.</p>
+            </div>
+
+            <div class="protocol-step">
+                <strong>Protocol 03 / Defensive Positioning</strong>
+                <p>In the event of an encounter, follow precision mitigation instructions immediately. Do not attempt manual redirection of local fauna.</p>
+            </div>
+            
+            <br>
+            <button class="btn-minimal" onclick="showPage('homePage')">Return to Core</button>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Designed for Sustainability and Environmental Harmony.
+    </footer>
+
+    <script>
+        // Array containing multiple complex animals to meet your request
+        const wildlife = [
+            { name: "King Cobra", danger: "Critical (Venomous)", dist: "12 Meters", tips: "Cease all physical motion instantly. Do not attempt intimidation gestures. Retrograde position slowly once target breaks line of sight." },
+            { name: "Wild Boar", danger: "High (Aggressive Matrix)", dist: "35 Meters", tips: "Family unit detected. Do not breach perimeter between maternal unit and offspring. Seek elevated terrain if targeted." },
+            { name: "Reticulated Python", danger: "High (Constrictor)", dist: "7 Meters", tips: "Camouflaged target near low foliage line. Divert course to paved surfaces. Maintain control of smaller companion animals." },
+            { name: "Asian Hornet Hive", danger: "Moderate (Swarm Risk)", dist: "15 Meters / Canopy", tips: "Acoustic signatures detected overhead. Suppress loud vocalizations and sudden kinetic movements. Exit canopy zone." },
+            { name: "Long-Tailed Macaque", danger: "Moderate (Territorial)", dist: "22 Meters", tips: "Conceal visible food matrices and plastic targets. Avoid direct ocular contact (smiling is interpreted as hostile behavior)." }
+        ];
+
+        // Global function to toggle active pages
+        function showPage(pageId) {
+            var pages = document.getElementsByClassName('page');
+            for (var i = 0; i < pages.length; i++) { 
+                pages[i].classList.remove('active'); 
+            }
