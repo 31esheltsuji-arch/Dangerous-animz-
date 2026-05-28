@@ -11,25 +11,21 @@ DOCTYPE html>
             padding: 0;
             background-color: #f4f9f4;
             color: #333;
-        }
         header {
             background-color: #2d5a27;
             color: white;
             padding: 2rem;
             text-align: center;
-        }
         .container {
             max-width: 800px;
             margin: 2rem auto;
             padding: 0 1rem;
-        }
-        .card {
+        .card 
             background: white;
             border-radius: 10px;
             padding: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
-        }
         h2 { color: #2d5a27; border-bottom: 2px solid #e0e0e0; padding-bottom: 0.5rem; }
         .offline-badge {
             display: inline-block;
@@ -40,16 +36,14 @@ DOCTYPE html>
             font-weight: bold;
             font-size: 0.8rem;
             margin-bottom: 1rem;
-        }
-        .btn {
+        .btn
             display: inline-block;
             background: #2d5a27;
             color: white;
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 5px;
-            margin-top: 1rem;
-        }
+            margin-top: 1remr
         footer { text-align: center; font-size: 0.8rem; color: #666; margin-top: 3rem; padding-bottom: 2rem; }
     </style>
 </head>
@@ -100,8 +94,7 @@ DOCTYPE html>
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
             background-color: #f4f9f4;
-            text-align: center;
-        }
+            text-align: center
         /* Style for the Header */
         header {
             background-color: #2d5a27;
@@ -113,18 +106,15 @@ DOCTYPE html>
             padding: 20px;
             max-width: 500px;
             margin: auto;
-        }
         /* This class shows the active page */
         .active {
             display: block;
-        }
         .card {
             background: white;
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             margin-top: 20px;
-        }
         .btn {
             background: #2d5a27;
             color: white;
@@ -132,12 +122,10 @@ DOCTYPE html>
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 1rem;
-        }
+            font-size: 1remr
         .warning-text {
             color: #d9534f;
             font-weight: bold;
-        }
     </style>
 </head>
 <body><div id="homePage" class="page active">
@@ -174,8 +162,7 @@ DOCTYPE html>
                 pages[i].classList.remove('active');
             }
             // Show the page we want
-            document.getElementById(pageId).classList.add('active');
-        }
+            document.getElementById(pageId).classList.add('active')
     </script>
 
 </body>
@@ -190,29 +177,24 @@ DOCTYPE html>
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
             background-color: #f4f9f4;
-        }
         header {
             background-color: #2d5a27;
             color: white;
             padding: 20px;
             text-align: center;
-        }
         .page {
             display: none; /* Hides all pages by default */
             padding: 20px;
             max-width: 500px;
             margin: auto;
-        }
         .active {
             display: block; /* Only shows the page with this class */
-        }
         .card {
             background: white;
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             margin-top: 20px;
-        }
         .btn {
             background: #2d5a27;
             color: white;
@@ -224,17 +206,13 @@ DOCTYPE html>
             width: 100%;
             margin-bottom: 10px;
             font-weight: bold;
-        }
         .btn-secondary {
             background: #555;
-        }
         .warning-text {
             color: #d9534f;
-        }
         ul {
             text-align: left;
-            line-height: 1.6;
-        }
+            line-height: 1.6
     </style>
 </head>
 <body><div id="homePage" class="page active">
@@ -288,7 +266,6 @@ DOCTYPE html>
             }
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0); // Scrolls to the top of the new page
-        }
     </script>
 
 </body>
