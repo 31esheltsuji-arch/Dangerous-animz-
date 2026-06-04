@@ -100,6 +100,38 @@
             text-transform: uppercase;
         }
 
+        /* Animal Detail Container with Image */
+        .animal-detail-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+            margin-top: 30px;
+        }
+
+        .animal-info {
+            flex: 1;
+        }
+
+        .animal-image-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            min-height: 400px;
+        }
+
+        .animal-image-wrapper img {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            display: block;
+        }
+
         /* Refined Detail & Protocol Sections */
         .detection-result {
             text-align: left;
@@ -286,6 +318,26 @@
             text-align: center;
             border-top: 1px solid var(--border);
         }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .animal-detail-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .animal-image-wrapper {
+                min-height: 300px;
+            }
+
+            .animal-image-wrapper img {
+                max-height: 300px;
+            }
+
+            .danger-level {
+                font-size: 2.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -309,37 +361,42 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // Wildlife data
+        // Wildlife data with images
         const wildlife = [
             { 
                 name: "King Cobra", 
                 danger: "Critical (Venomous)", 
                 dist: "12 Meters", 
-                tips: "Cease all physical motion instantly. Do not attempt intimidation gestures. Retrograde position slowly on marked pathways. Contact local wildlife services immediately. Venom can be fatal without medical intervention."
+                tips: "Cease all physical motion instantly. Do not attempt intimidation gestures. Retrograde position slowly on marked pathways. Contact local wildlife services immediately. Venom is extremely toxic and lethal.",
+                image: "https://images.unsplash.com/photo-1607317352359-4e1b0d3c3b4a?w=500&h=400&fit=crop"
             },
             { 
                 name: "Wild Boar", 
                 danger: "High (Aggressive Matrix)", 
                 dist: "35 Meters", 
-                tips: "Family unit detected. Do not breach perimeter between maternal unit and offspring. Seek elevated terrain or sturdy structures. Make loud noises to encourage distance. Never run directly away as this triggers chase response."
+                tips: "Family unit detected. Do not breach perimeter between maternal unit and offspring. Seek elevated terrain or sturdy structures. Make loud noises to encourage distance. Never run directly away.",
+                image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=500&h=400&fit=crop"
             },
             { 
                 name: "Reticulated Python", 
                 danger: "High (Constrictor)", 
                 dist: "7 Meters", 
-                tips: "Camouflaged target near low foliage line. Divert course to paved surfaces. Maintain control of small pets and children. Do not attempt capture. Snake is non-aggressive unless provoked or protecting nest."
+                tips: "Camouflaged target near low foliage line. Divert course to paved surfaces. Maintain control of small pets and children. Do not attempt capture. Snake is non-aggressive unless provoked.",
+                image: "https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?w=500&h=400&fit=crop"
             },
             { 
                 name: "Asian Hornet Hive", 
                 danger: "Moderate (Swarm Risk)", 
                 dist: "15 Meters / Canopy", 
-                tips: "Acoustic signatures detected overhead. Suppress loud vocalizations and sudden kinetic movements. Do not throw objects at nest. Retreat slowly and seek shelter. Medical attention required if stung multiple times."
+                tips: "Acoustic signatures detected overhead. Suppress loud vocalizations and sudden kinetic movements. Do not throw objects at nest. Retreat slowly and seek shelter. Medical attention required for stings.",
+                image: "https://images.unsplash.com/photo-1608848461950-0fed8152fdf9?w=500&h=400&fit=crop"
             },
             { 
                 name: "Long-Tailed Macaque", 
                 danger: "Moderate (Territorial)", 
                 dist: "22 Meters", 
-                tips: "Conceal visible food matrices and plastic targets. Avoid direct eye contact (smiling is interpreted as threat display). Do not approach young animals. Troop can become aggressive if food availability is challenged."
+                tips: "Conceal visible food matrices and plastic targets. Avoid direct eye contact (smiling is interpreted as threat display). Do not approach young animals. Troop can become aggressive when protective.",
+                image: "https://images.unsplash.com/photo-1551318148-0df0b5cda2b0?w=500&h=400&fit=crop"
             }
         ];
 
@@ -444,14 +501,30 @@
 
                             <div className="detection-result">
                                 <div className="danger-level">{animal.name}</div>
-                                <div className="meta-info">
-                                    <p><strong>Threat Status:</strong> <span>{animal.danger}</span></p>
-                                    <p><strong>Proximity Vector:</strong> <span>{animal.dist}</span></p>
-                                    <p style={{ maxWidth: '600px', color: 'var(--text-secondary)', marginTop: '20px' }}>
-                                        {animal.tips}
-                                    </p>
+                                
+                                <div className="animal-detail-container">
+                                    <div className="animal-info">
+                                        <div className="meta-info">
+                                            <p><strong>Threat Status:</strong> <span>{animal.danger}</span></p>
+                                            <p><strong>Proximity Vector:</strong> <span>{animal.dist}</span></p>
+                                            <p style={{ maxWidth: '600px', color: 'var(--text-secondary)', marginTop: '20px' }}>
+                                                {animal.tips}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="animal-image-wrapper">
+                                        <img 
+                                            src={animal.image} 
+                                            alt={animal.name}
+                                            onError={(e) => {
+                                                e.target.src = 'https://via.placeholder.com/400x300?text=' + animal.name.replace(/\s/g, '+');
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                                <button className="btn-minimal" onClick={onReset}>Reset Scan Matrix</button>
+                                
+                                <button className="btn-minimal" onClick={onReset} style={{ marginTop: '30px' }}>Reset Scan Matrix</button>
                             </div>
                         </>
                     )}
